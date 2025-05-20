@@ -9,14 +9,24 @@ def chat_with_groq(chat_history):
 
     payload = {
         "model": "llama-3.3-70b-versatile",
-        "messages": chat_history,
         "temperature": 0.6
     }
 
     try:
-        res = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=headers, json=payload)
+        res = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers=headers,
+            json=payload,
+            timeout=10  # avoids hanging
+        )
         res.raise_for_status()
         return res.json()["choices"][0]["message"]["content"].strip()
+
+    except requests.exceptions.HTTPError as http_err:
+        print("HTTP error:", res.text if 'res' in locals() else http_err)
+    except requests.exceptions.RequestException as req_err:
+        print("Request error:", req_err)
     except Exception as e:
-        print("Groq API Chat Error:", res.text)
-        return "⚠️ Sorry, I had trouble responding just now."
+        print("Unexpected error:", str(e))
+
+    return "⚠️ Sorry, I couldn't respond at the moment. Please try again later."
