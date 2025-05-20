@@ -60,14 +60,24 @@ with tab3:
         ]
 
     if "last_result" not in st.session_state:
-        st.session_state.last_result = "positive"  # fallback in case analysis hasn't run
+        st.session_state.last_result = "good"  # fallback in case analysis hasn't run
 
     # Add latest analysis as context if not already added
     if not any("Analysis Result" in msg["content"] for msg in st.session_state.chat_history):
         st.session_state.chat_history.append({
             "role": "user",
-            "content": f"Analysis Result: My latest betting behavior was labeled '{st.session_state.last_result}'."
+            "content": f"My latest analysis says I'm in a '{st.session_state.last_result}' betting status. Can you help me reflect or improve?"
+
         })
+    
+    status_explainer = {
+    "good": "You're currently doing great — no betting signs detected!",
+    "partial": "You're making progress, but some signs of betting were still found.",
+    "chronic": "The report shows continued betting. Let’s work on getting back on track."
+}
+    
+    st.markdown(f"🧭 **Current Status**: `{st.session_state.last_result.upper()}` — {status_explainer[st.session_state.last_result]}")
+
 
     user_input = st.chat_input("Talk to the BetLess Coach")
 
