@@ -2,7 +2,6 @@ import streamlit as st
 from analyzer import detect_betting_transactions, analyze_progress
 from gamification import update_score, get_leaderboard
 from advice_engine import chat_with_groq
-from user_data import get_username
 
 st.set_page_config("BetLess", layout="centered")
 st.title("🎯 BetLess – Break Free from Betting")
