@@ -8,7 +8,7 @@ def chat_with_groq(chat_history):
     }
 
     payload = {
-        "model": "llama3-70b-8192",
+        "model": "llama-3.3-70b-versatile",
         "messages": chat_history,
         "temperature": 0.6
     }
