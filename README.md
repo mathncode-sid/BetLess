@@ -72,6 +72,8 @@
 - `data/scores.json`: Stores user scores.
 
 ---
+## Demo Video
+[Watch Demo Video](https://github.com/mathncode-sid/BetLess/raw/main/demo/demo.mp4)
 
 ## Notes
 
